@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/banner.webp" alt="十八木" width="100%" />
+</p>
+
 # 18trees-AI-writing-skill
 
 把中文口播稿、语音转写和粗糙随笔，整理成**仍然明显像你自己写的**文章。
