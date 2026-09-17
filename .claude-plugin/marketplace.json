@@ -1,0 +1,17 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-marketplace.json",
+  "name": "18trees-ai-writing",
+  "description": "整理中文口播稿的 AI skill：保留作者声音，去掉口播污染，严控 AI 味文风。",
+  "owner": {
+    "name": "十八木",
+    "url": "https://github.com/MonsterPPPP"
+  },
+  "plugins": [
+    {
+      "name": "voice-preserving-essay-editor",
+      "description": "将中文口播、语音转写或粗糙随笔整理为简洁、清晰、保留作者声音的 Markdown 文稿。",
+      "source": "./",
+      "category": "writing"
+    }
+  ]
+}

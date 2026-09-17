@@ -1,0 +1,40 @@
+{
+  "name": "voice-preserving-essay-editor",
+  "version": "0.7.0",
+  "description": "Voice-preserving Chinese essay editor: clean up dictated drafts and transcripts without flattening the author's voice.",
+  "author": {
+    "name": "十八木",
+    "url": "https://github.com/MonsterPPPP"
+  },
+  "homepage": "https://github.com/MonsterPPPP/18trees-AI-writing-skill",
+  "repository": "https://github.com/MonsterPPPP/18trees-AI-writing-skill",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "chinese",
+    "essay",
+    "transcript",
+    "asr-cleanup",
+    "voice-preserving",
+    "skills",
+    "codex"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Voice-Preserving Essay Editor",
+    "shortDescription": "整理中文口播稿，保留作者声音",
+    "longDescription": "整理中文口播、语音转写和粗糙随笔：修正 ASR 错误与口播污染，优化结构、语序与排版，同时严格保留作者的观点、语气、锋利度和个人表达。默认写完整段落，严控 AI 味文风。",
+    "developerName": "十八木",
+    "category": "Writing",
+    "capabilities": [
+      "Instructions"
+    ],
+    "websiteURL": "https://github.com/MonsterPPPP/18trees-AI-writing-skill",
+    "defaultPrompt": [
+      "用 voice-preserving-essay-editor 整理这篇口播稿。",
+      "整理这份语音转写，保留我的语气和判断，不要写成公众号风格。",
+      "检查这篇稿子的段落节奏和 AI 味。"
+    ],
+    "brandColor": "#2F6B4F"
+  }
+}

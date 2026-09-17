@@ -1,0 +1,9 @@
+{
+  "name": "voice-preserving-essay-editor",
+  "version": "0.7.0",
+  "description": "将中文口播、语音转写或粗糙随笔整理为简洁、清晰、保留作者声音的 Markdown 文稿。",
+  "author": {
+    "name": "十八木",
+    "url": "https://github.com/MonsterPPPP"
+  }
+}
