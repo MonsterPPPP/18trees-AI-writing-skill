@@ -31,7 +31,7 @@
 
 ## 规则只维护在一个地方
 
-`dist/voice-preserving-essay-editor.md` 是**生成物**，不要直接编辑它。
+`dist/voice-preserving-essay-editor.md` 和 `dist/knowledge-essay-editor.md` 是**生成物**，不要直接编辑它们。
 
 改规则的流程：
 
@@ -42,9 +42,9 @@
 bash scripts/build-dist.sh
 ```
 
-3. 把 `dist/` 的改动一起提交
+3. 把两份 `dist/` 中实际变化的文件一起提交
 
-`dist/` 是给没有 skill 机制的工具（网页版 ChatGPT、DeepSeek、Kimi 等）用的——用户直接复制粘贴整份文件，所以它必须包含**全部**约束，不能有任何外部引用。
+`dist/` 是给没有 skill 机制的工具（网页版 ChatGPT、DeepSeek、Kimi 等）用的。个人与知识模式各有一份完整提示词，用户只复制符合稿件主要目的的那一份；文件不能依赖仓库中的其他规则。
 
 ---
 
@@ -52,7 +52,10 @@ bash scripts/build-dist.sh
 
 | 你想加的规则 | 放哪 |
 |---|---|
-| 任务本质、编辑优先级、跨所有场景的硬约束 | `SKILL.md` |
+| 两种模式的选择、跨模式边界 | `SKILL.md` |
+| 已确认的个人随笔入口规则 | `references/personal-essay.md` |
+| 知识型随笔的核验、归属和表达规则 | `references/knowledge-essay.md` |
+| 个人口播中的机械重复和口癖 | `references/oral-disfluency.md` |
 | 段落长度、节奏、拆合段落 | `references/paragraph-rhythm.md` |
 | 标题、加粗、列表、表格、Markdown 排版 | `references/formatting.md` |
 | 什么能改什么不能改、事实核验、引文 | `references/editing-boundaries.md` |
@@ -61,6 +64,8 @@ bash scripts/build-dist.sh
 | 执行流程、输出前自检 | `references/workflow-checklist.md` |
 
 **不要把细则塞进 `SKILL.md`。** 入口文件保持精简，细则放 `references/` 按需加载——这是让 skill 在 Claude Code 和 Codex 里都跑得好的前提。
+
+知识模式以作者提供的《知识型随笔写作规范 v0.1》为依据。保留其中已明确的知识准确、作者保真、对话归属和技术表达约束；草案中的“未来定型”说明不作为当前编辑指令。个人模式的 10 条既有规则移到 reference 后仍持续有效。
 
 ---
 

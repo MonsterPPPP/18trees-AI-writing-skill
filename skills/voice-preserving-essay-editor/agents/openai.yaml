@@ -1,4 +1,4 @@
 interface:
   display_name: "Voice-Preserving Essay Editor"
-  short_description: "整理中文口播稿，保留作者声音"
-  default_prompt: "用 $voice-preserving-essay-editor 整理这份口播稿：保留我的观点、语气和锋利度，不要写成公众号风格。"
+  short_description: "整理中文口播与知识随笔，保留作者声音"
+  default_prompt: "用 $voice-preserving-essay-editor 整理这份稿子：按主要写作目的选择模式，保留我的观点与真实思路。"

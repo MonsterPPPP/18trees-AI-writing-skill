@@ -8,7 +8,7 @@
 
 # 18trees-AI-writing-skill
 
-Turns Chinese dictated drafts, speech-to-text transcripts, and rough notes into articles that **still read unmistakably as your own**.
+Turns Chinese dictated drafts, rough essays, and technical learning conversations into articles that **still read unmistakably as your own**. The installed skill selects a personal essay or knowledge essay mode based on the draft's main purpose.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
@@ -16,21 +16,31 @@ Turns Chinese dictated drafts, speech-to-text transcripts, and rough notes into 
 
 ## What problem it solves
 
-You write things with voice input, and the transcript comes out as a lump: filler words, broken sentence breaks, wrong proper nouns, one solid block with no paragraph breaks.
+You write with voice input, and the transcript comes out as a lump: filler words, repeated “I think,” broken sentence breaks, wrong proper nouns, and no paragraph breaks. A technical discussion may also contain mistaken guesses, AI replies, and unverified formulas or code.
 
 **Hand it straight to an AI to clean up and the problem gets worse.** It elevates your conclusions for you, softens your points, stuffs in "not X, but Y", splits it into a pile of bullet lists, bolds until it glows. The article comes out clean, but it no longer reads like you.
 
-This skill does the reverse: **cleaning up before polishing, fidelity before playing it safe**. It fixes facts and dictation contamination, but does not touch your judgments, your tone, or how sharp they are.
+This skill puts **editing before polishing, while preserving the author and checking knowledge**. Personal mode removes dictation noise without flattening the author's judgments or tone. Knowledge mode checks technical claims while preserving the real questions and learning process.
 
 - ✅ Fixes ASR errors, typos, wrong proper nouns, factual errors
-- ✅ Removes filler words, broken sentence breaks, half-finished sentences
+- ✅ Removes mechanical repetition and filler phrases case by case, while keeping meaningful hesitation and changes of mind
 - ✅ Rearranges paragraphs, headings, bold, layout
+- ✅ In knowledge essays, checks key premises, formulas, code, and who said what; marks unresolved core claims
 - ❌ Does not elevate your conclusions for you
 - ❌ Does not rewrite strong claims as "possibly" or "maybe"
 - ❌ Does not add AI-flavored sentence patterns like "not X, but Y"
 - ❌ Does not turn a personal note into WeChat-public-account chicken soup or a consulting report
 
-See a real before/after: [examples/](examples/) — a 620-character dictated draft, the cleaned-up final version, and the rule behind each change.
+The existing [real before/after example](examples/) covers personal dictation: a 620-character draft, its edited version, and the reason for each change. Knowledge mode is based on the author's *Knowledge Essay Writing Specification v0.1*; the repository does not yet include a real knowledge-essay before/after example.
+
+## Two writing modes
+
+| Main purpose of the draft | With the installed skill | Copy into a chat tool or Coding Agent |
+| --- | --- | --- |
+| Express personal experiences, views, or feelings; technical ideas are incidental | Selects personal dictation and essay mode | Copy the complete [personal prompt](dist/voice-preserving-essay-editor.md) |
+| Explain engineering, mathematics, code, or scientific reasoning; personal experience frames the question | Selects knowledge essay mode | Copy the complete [knowledge prompt](dist/knowledge-essay-editor.md) |
+
+An explicit style request takes precedence. For a mixed draft, select the mode that matches its main thread and account for the other kind of content where it occurs. Each copyable file is complete: **copy just one**. Knowledge mode checks verifiable claims without presenting an AI reply as the author's own discovery or changing the author's value judgments.
 
 ---
 
@@ -54,9 +64,9 @@ Copy `skills/voice-preserving-essay-editor/` into `~/.codex/skills/` (for a proj
 
 ### Any AI chat tool (ChatGPT / Gemini / DeepSeek / Kimi / Doubao …)
 
-**No installation needed.** Open [`dist/voice-preserving-essay-editor.md`](dist/voice-preserving-essay-editor.md), copy **the entire contents**, paste it as your first message, then paste in your draft.
+**No installation needed.** Choose one `dist/` file from the table above, copy **the entire contents**, paste it as your first message, then paste in your draft.
 
-This file is the complete bound-together version of all the rules; it depends on no external file, plugin, or API.
+Each file contains all the rules for its mode and needs no other repository file, plugin, or API. Checking knowledge still depends on the tool's access to suitable sources; when a core claim cannot be verified, the rules require it to remain an open question or be marked unverified.
 
 ### How to use it once installed
 
@@ -64,7 +74,7 @@ Just say what you want in plain words, and the skill triggers automatically:
 
 > Clean up this dictated draft for me.
 > This one is a speech-to-text transcript — tidy it up, keep my tone.
-> Check this draft's paragraph rhythm and AI flavor.
+> Turn this conversation about formulas and code into an essay; check the reasoning and preserve the questions I actually asked.
 
 ---
 
@@ -73,16 +83,17 @@ Just say what you want in plain words, and the skill triggers automatically:
 ```
 .
 ├── skills/voice-preserving-essay-editor/   ← rule source files (single source of truth)
-│   ├── SKILL.md                            Entry point: the task, priorities, hard constraints, routing
-│   ├── references/                         Detailed rules, loaded on demand
+│   ├── SKILL.md                            Entry point: mode selection and shared boundaries
+│   ├── references/                         Personal mode, knowledge mode, and conditional rules
 │   └── agents/openai.yaml                  Codex UI metadata
 ├── dist/
-│   └── voice-preserving-essay-editor.md    ← single-file complete version (auto-generated, for chatbots)
-├── examples/                               Draft → final version comparison, with a rule explanation per change
-└── scripts/build-dist.sh                   Generates dist/ from skills/
+│   ├── voice-preserving-essay-editor.md    ← complete personal-mode prompt
+│   └── knowledge-essay-editor.md           ← complete knowledge-mode prompt
+├── examples/                               Existing personal dictation before/after
+└── scripts/build-dist.sh                   Generates both files from skills/
 ```
 
-**Two delivery formats**: `skills/` is the split version, loaded on demand (for Claude Code / Codex); `dist/` is the single-file version with all the rules bound together (for tools with no skill mechanism). `dist/` is generated by a script — to change rules, edit only `skills/`, then run:
+**Two delivery formats**: `skills/` is the split version that selects a mode (for Claude Code / Codex); `dist/` contains one complete file per mode (for tools where you paste instructions). `dist/` is generated from the rule source — edit only `skills/`, then run:
 
 ```bash
 bash scripts/build-dist.sh
@@ -92,11 +103,11 @@ bash scripts/build-dist.sh
 
 ## Design principles
 
-This skill itself follows the writing principles it enforces: paragraphs have a skeleton, short sentences carry an edge, long and short alternate but never fragment. The rules come in three layers—
+The rules have three layers:
 
-1. **SKILL.md**: the nature of the task, editing priorities, the fact-opinion boundary, AI-flavor red lines, hard paragraph constraints
-2. **references/**: paragraph rhythm, layout, editing boundaries, the AI-flavor checklist, execution flow and self-check
-3. **Execution flow**: fix facts first → then structure → then sentences → self-check every item before output
+1. **SKILL.md**: select a mode by the draft's main purpose and state the shared author-fidelity and fact boundaries.
+2. **references/**: personal mode keeps its existing rules and adds [disfluency decisions](skills/voice-preserving-essay-editor/references/oral-disfluency.md); [knowledge mode](skills/voice-preserving-essay-editor/references/knowledge-essay.md) covers attribution, factual checking, and technical explanation.
+3. **Execution flow**: personal mode removes dictation noise; knowledge mode identifies sources and gaps, then checks, edits, and reviews the result.
 
 The final self-check is one question:
 
