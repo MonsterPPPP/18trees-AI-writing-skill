@@ -1,7 +1,7 @@
 {
   "name": "voice-preserving-essay-editor",
-  "version": "0.7.0",
-  "description": "Voice-preserving Chinese essay editor: clean up dictated drafts and transcripts without flattening the author's voice.",
+  "version": "0.8.0",
+  "description": "Voice-preserving Chinese essay editor for personal dictation and knowledge essays, with automatic mode selection.",
   "author": {
     "name": "十八木",
     "url": "https://github.com/MonsterPPPP"
@@ -16,14 +16,15 @@
     "transcript",
     "asr-cleanup",
     "voice-preserving",
+    "knowledge-essay",
     "skills",
     "codex"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Voice-Preserving Essay Editor",
-    "shortDescription": "整理中文口播稿，保留作者声音",
-    "longDescription": "整理中文口播、语音转写和粗糙随笔：修正 ASR 错误与口播污染，优化结构、语序与排版，同时严格保留作者的观点、语气、锋利度和个人表达。默认写完整段落，严控 AI 味文风。",
+    "shortDescription": "整理个人口播与知识随笔，保留作者声音",
+    "longDescription": "根据稿件主要目的自动选择个人口播或知识型随笔模式。个人模式清理口癖与机械重复；知识模式核验技术论证、公式、代码和对话归属，同时保留作者真实的思路与语气。",
     "developerName": "十八木",
     "category": "Writing",
     "capabilities": [
@@ -31,9 +32,9 @@
     ],
     "websiteURL": "https://github.com/MonsterPPPP/18trees-AI-writing-skill",
     "defaultPrompt": [
-      "用 voice-preserving-essay-editor 整理这篇口播稿。",
+      "用 voice-preserving-essay-editor 整理这篇稿子，并自动选择合适的写作模式。",
       "整理这份语音转写，保留我的语气和判断，不要写成公众号风格。",
-      "检查这篇稿子的段落节奏和 AI 味。"
+      "把这份技术学习对话整理成知识型随笔，核对关键论证并保留我的提问过程。"
     ],
     "brandColor": "#2F6B4F"
   }
